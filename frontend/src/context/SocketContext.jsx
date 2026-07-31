@@ -3,6 +3,11 @@ import { io } from "socket.io-client";
 
 const SocketContext = createContext();
 
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5001"
+    : "https://realtime-chat-app-1-x04s.onrender.com";
+
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
@@ -11,7 +16,7 @@ export const SocketProvider = ({ children }) => {
 
     if (!user?._id) return;
 
-    const newSocket = io("http://localhost:5001", {
+    const newSocket = io(BASE_URL, {
       query: {
         userId: user._id,
       },
