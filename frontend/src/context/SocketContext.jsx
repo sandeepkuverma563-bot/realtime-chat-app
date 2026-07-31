@@ -4,9 +4,7 @@ import { io } from "socket.io-client";
 const SocketContext = createContext();
 
 const BASE_URL =
-  import.meta.env.MODE === "development"
-    ? "http://localhost:5001"
-    : "https://realtime-chat-app-1-x04s.onrender.com";
+  import.meta.env.MODE ="https://realtime-chat-app-1-x04s.onrender.com";
 
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
