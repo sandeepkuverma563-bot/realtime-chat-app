@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
+import API_BASE_URL from "../config/api";
 
 function Settings() {
   const { darkMode, setDarkMode } = useTheme();
@@ -29,15 +30,11 @@ function Settings() {
 
       const token = localStorage.getItem("token");
 
-      await axios.post(
-        "http://localhost:5001/api/users/upload-profile",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await axios.post(`${API_BASE_URL}/api/users/upload-profile`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       alert("Profile updated");
     } catch (error) {

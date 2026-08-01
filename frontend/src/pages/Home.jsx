@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 import { useTheme } from "../context/ThemeContext";
+import API_BASE_URL from "../config/api";
 
 function Home() {
   const navigate = useNavigate();
@@ -32,12 +33,9 @@ function Home() {
           return;
         }
 
-        const response = await axios.get(
-          "http://localhost:5001/api/users/profile",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const response = await axios.get(`${API_BASE_URL}/api/users/profile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -72,7 +70,7 @@ function Home() {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        `http://localhost:5001/api/messages/send/${selectedUser._id}`,
+        `${API_BASE_URL}/api/messages/send/${selectedUser._id}`,
         {
           text: newMessage,
           image: image,
@@ -100,7 +98,7 @@ function Home() {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:5001/api/messages/${messageId}`, {
+      await axios.delete(`${API_BASE_URL}/api/messages/${messageId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -116,7 +114,7 @@ function Home() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get("http://localhost:5001/api/users", {
+        const response = await axios.get(`${API_BASE_URL}/api/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -138,7 +136,7 @@ function Home() {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          `http://localhost:5001/api/messages/${selectedUser._id}`,
+          `${API_BASE_URL}/api/messages/${selectedUser._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
